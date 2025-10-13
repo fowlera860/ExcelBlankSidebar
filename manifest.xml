@@ -17,7 +17,7 @@
 
   <DefaultSettings>
     <Action xsi:type="ShowTaskpane">
-    <SourceLocation DefaultValue="file://tdg-sa-file/Atmore/IE/ExcelSidebar/taskpane.html"/>
+    <SourceLocation DefaultValue="https://fowlera860.github.io/ExcelBlankSidebar/taskpane.html"/>
   </DefaultSettings>
 
   <Permissions>ReadWriteDocument</Permissions>
