@@ -16,7 +16,6 @@
   </Hosts>
 
   <DefaultSettings>
-    <Action xsi:type="ShowTaskpane">
     <SourceLocation DefaultValue="https://fowlera860.github.io/ExcelBlankSidebar/taskpane.html"/>
   </DefaultSettings>
 
