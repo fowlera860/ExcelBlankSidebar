@@ -6,7 +6,7 @@
   <Version>1.0.0.0</Version>
   <ProviderName>YourCompany</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Blank Sidebar Git"/>
+  <DisplayName DefaultValue="Blank Sidebar"/>
   <Description DefaultValue="POC blank sidebar controlled by VBA"/>
   <IconUrl DefaultValue="icon.png"/>
   <SupportUrl DefaultValue="https://example.com"/>
