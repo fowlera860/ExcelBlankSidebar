@@ -16,7 +16,7 @@
   </Hosts>
 
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://fowlera860.github.io/ExcelBlankSidebar/taskpane.html"/>
+    <SourceLocation DefaultValue="https://fowlera860.github.io/ExcelBlankSidebar/taskpane.html?v=4"/>
   </DefaultSettings>
 
   <Permissions>ReadWriteDocument</Permissions>
