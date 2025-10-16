@@ -8,9 +8,72 @@
     <!-- Then your script -->
     <script src="taskpane.js"></script>
     <link rel="stylesheet" href="taskpane.css">
+
+    <style>
+        /* default (light) */
+        #content { padding:10px; font-family:sans-serif; color:#111; background:transparent; }
+
+        /* prefer dark mode via CSS when available */
+        @media (prefers-color-scheme: dark) {
+            #content { color:#eee; }
+        }
+
+        /* explicit class-based override (set by JS) */
+        body.dark #content { color:#eee; }
+        body.light #content { color:#111; }
+    </style>
+
+    <script>
+        (function () {
+            // parse hex color like "#RRGGBB" -> luminance [0..1]
+            function hexLuminance(hex) {
+                if (!hex) return null;
+                hex = hex.replace('#','');
+                if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+                if (hex.length !== 6) return null;
+                const r = parseInt(hex.substring(0,2),16)/255;
+                const g = parseInt(hex.substring(2,4),16)/255;
+                const b = parseInt(hex.substring(4,6),16)/255;
+                // relative luminance
+                const srgb = [r,g,b].map(c => c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4));
+                return 0.2126*srgb[0] + 0.7152*srgb[1] + 0.0722*srgb[2];
+            }
+
+            function applyTheme(isDark) {
+                document.body.classList.toggle('dark', !!isDark);
+                document.body.classList.toggle('light', !isDark);
+            }
+
+            // 1) Use window.matchMedia to detect OS/browser preference and watch for changes
+            const mq = window.matchMedia('(prefers-color-scheme: dark)');
+            applyTheme(mq.matches);
+            if (typeof mq.addEventListener === 'function') {
+                mq.addEventListener('change', e => applyTheme(e.matches));
+            } else if (typeof mq.addListener === 'function') {
+                mq.addListener(e => applyTheme(e.matches));
+            }
+
+            // 2) If Office theme info is available, prefer that (more accurate for host)
+            if (window.Office && Office.onReady) {
+                Office.onReady().then(() => {
+                    try {
+                        const theme = Office.context && Office.context.officeTheme;
+                        if (theme && theme.background) {
+                            const lum = hexLuminance(theme.background);
+                            if (lum !== null) {
+                                applyTheme(lum < 0.5);
+                            }
+                        }
+                    } catch (e) {
+                        // ignore and keep OS preference
+                    }
+                }).catch(()=>{/* ignore */});
+            }
+        })();
+    </script>
 </head>
 <body>
-    <div id="content" style="padding:10px; font-family:sans-serif;">
+    <div id="content">
         <!-- Initial blank state -->
         <p>Sidebar ready (v4)</p>
         <p>put comment in "SidebarMessage"</p>
