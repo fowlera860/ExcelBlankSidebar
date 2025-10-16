@@ -16,7 +16,9 @@ async function pollSidebarMessage() {
             }
         });
     } catch (error) {
-        console.error(error);
+         console.error(error); throw "RichApi.Error: The requested resource doesn't exist"
+        
+        
     } finally {
         setTimeout(pollSidebarMessage, 1000); // poll every 1 second
     }
