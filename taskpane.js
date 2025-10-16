@@ -5,8 +5,11 @@ Office.onReady(() => {
 async function pollSidebarMessage() {
     try {
         await Excel.run(async (context) => {
+            console.log("Entered Excel.run")
             const sheet = context.workbook.worksheets.getActiveWorksheet();
+            console.log(sheet.name)
             const range = sheet.names.getItem("SidebarMessage").getRange();
+            console.log(range.address)
             range.load("values");
             await context.sync();
 
@@ -16,8 +19,8 @@ async function pollSidebarMessage() {
             }
         });
     } catch (error) {
-         console.error(error); throw "RichApi.Error: The requested resource doesn't exist"
-        
+         //console.log(error)
+        console.log("error thrown")
         
     } finally {
         setTimeout(pollSidebarMessage, 1000); // poll every 1 second
