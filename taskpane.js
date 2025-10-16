@@ -7,11 +7,14 @@ async function pollSidebarMessage() {
         await Excel.run(async (context) => {
             console.log("Entered Excel.run")
             const sheet = context.workbook.worksheets.getActiveWorksheet();
-            console.log(sheet.name)
+            sheet.load("name");
             const range = sheet.names.getItem("SidebarMessage").getRange();
-            console.log(range.address)
+            range.load("address");
             range.load("values");
             await context.sync();
+            
+            console.log(sheet.name)
+            console.log(range.address)
 
             const msg = range.values[0][0];
             if (msg) {
